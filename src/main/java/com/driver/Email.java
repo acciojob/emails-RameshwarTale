@@ -26,37 +26,37 @@ public class Email {
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
 
-        int size = newPassword.length();
-        if(this.password.equals(oldPassword) && size>=8){
-
-             boolean upperCase = false;
-             boolean lowerCase = false;
-             boolean digit =  false;
-             boolean specialChar = false;
-
-             for(int i=0; i<size; i++){
-                 char ch = newPassword.charAt(i);
-
-                 if(ch>='A' && ch<='z'){
-                     upperCase = true;
-                 }
-                 else if(ch>='a' && ch<='z'){
-                     lowerCase = true;
-                 }
-                 else if(ch>='0' && ch<='9'){
-                     digit = true;
-                 }
-                 else{
-                     specialChar = true;
-                 }
-             }
-
-            if(upperCase && lowerCase && digit && specialChar){
+        if(password.equals(oldPassword)) {
+            if(isValidPass(newPassword)){
                 this.password = newPassword;
             }
         }
-        else{
-            return;
-        }
     }
+    private boolean isValidPass(String newPassword){
+        boolean containsUppercase = false;
+        boolean containsLowercase = false;
+        boolean containsDigit = false;
+        boolean containsSpecialChar = false;
+        if(newPassword.length()<8) return false;
+        for(int i =0;i<newPassword.length();i++){
+            char val = newPassword.charAt(i);
+            if(val>='A' && val<='Z'){
+                containsUppercase = true;
+            }
+            else if(val>='0' && val<='9'){
+                containsDigit = true;
+            }
+            else if(val>='a' && val<='z'){
+                containsLowercase = true;
+            }
+            else{
+                containsSpecialChar = true;
+            }
+        }
+        if(containsSpecialChar && containsLowercase && containsUppercase && containsDigit){
+            return true;
+        }
+        return false;
+    }
+
 }
